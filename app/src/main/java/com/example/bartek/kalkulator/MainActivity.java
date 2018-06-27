@@ -1,8 +1,12 @@
 package com.example.bartek.kalkulator;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +31,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+import static android.view.View.generateViewId;
 
 public class MainActivity extends Activity {
 
@@ -67,8 +74,6 @@ public class MainActivity extends Activity {
         divideBtn = (Button) findViewById(R.id.divideBtn);
         equalsBtn = (Button) findViewById(R.id.equalsBtn);
         clearBtn = (Button) findViewById(R.id.clearBtn);
-
-
 
         b1.setOnClickListener(new View.OnClickListener() {
 
@@ -173,7 +178,7 @@ public class MainActivity extends Activity {
 
         addBtn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //dodawanie
+            public void onClick(View v) { // adding
 
 //                temp = a;
 //                temp1 = 1;
@@ -215,7 +220,7 @@ public class MainActivity extends Activity {
 
         minusBtn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //odejmowanie
+            public void onClick(View v) { // subtraction
 //                temp = a;
 //                temp1 = 2;
 //                a = "";
@@ -247,7 +252,7 @@ public class MainActivity extends Activity {
 
         multiplyBtn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //mnożenie
+            public void onClick(View v) { // multiplying
 //                temp = a;
 //                temp1 = 3;
 //                a = "";
@@ -279,7 +284,7 @@ public class MainActivity extends Activity {
 
         divideBtn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //dzielenie
+            public void onClick(View v) { // dividing
 //                temp = a;
 //                temp1 = 4;
 //                a = "";
@@ -320,7 +325,7 @@ public class MainActivity extends Activity {
                 String checkIfFirstItemOfListIsEmpty = array.get(0);
 
                 if(checkIfFirstItemOfListIsEmpty == "") {
-                    Toast.makeText(MainActivity.this,"Nie podałeś żadnych działań!",500).show();
+                    Toast.makeText(MainActivity.this,"There is no mathematical operation!",500).show();
                 } else {
                     if(array.get(0).equals("")) {
                         array.subList(0, 1).clear();
@@ -351,7 +356,7 @@ public class MainActivity extends Activity {
                             String pom1 = String.valueOf(pom);
                             array.add(0, pom1);
                             input.setText("");
-                            Toast.makeText(MainActivity.this,"Ciąg musi kończyć się liczbą!",500).show();
+                            Toast.makeText(MainActivity.this,"There has to be a digit at the end!",500).show();
                         }
                     }
 
@@ -364,7 +369,7 @@ public class MainActivity extends Activity {
                         ArrayList<String> resultString = (ArrayList)array.clone();
 
                         if (array.get(array.size() - 1).equals("+") || array.get(array.size() - 1).equals("-") || array.get(array.size() - 1).equals("*") || array.get(array.size() - 1).equals("/")) {
-                            Toast.makeText(MainActivity.this,"Ciąg musi kończyć się liczbą!",500).show();
+                            Toast.makeText(MainActivity.this,"There has to be a digit at the end!",500).show();
                         } else {
                             for (int i = 0; i < resultString.size(); i++) {
 
@@ -384,7 +389,7 @@ public class MainActivity extends Activity {
                                     double temp = Double.parseDouble(resultString.get(i - 1));
                                     double temp1 = Double.parseDouble(resultString.get(i + 1));
                                     if(temp1 == 0) {
-                                        Toast.makeText(MainActivity.this, "Dzielenie przez 0!",500).show();
+                                        Toast.makeText(MainActivity.this, "Dividing by 0!",500).show();
                                         temp1 = 1;
                                     }
                                     resultString.set(i - 1, String.valueOf(temp / temp1));
@@ -420,7 +425,7 @@ public class MainActivity extends Activity {
                     //                }
 
 
-                    result.setText("Wynik: " + (String.valueOf(finalResult)));
+                    result.setText((String.valueOf(finalResult)));
                 }
             }
         });
@@ -431,8 +436,8 @@ public class MainActivity extends Activity {
 
             public void onClick(View v) {
                 input.setText("");
-                result.setText("Wynik: ");
-                Toast.makeText(MainActivity.this, "Wyczyszczono!", 100).show();
+                result.setText("");
+                Toast.makeText(MainActivity.this, "Cleared!", 100).show();
             }
         });
 
